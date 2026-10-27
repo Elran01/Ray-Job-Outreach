@@ -81,7 +81,7 @@ prompts:
   sender_profile: "profile/sender_profile.md"
 
 limits:
-  max_jobs_per_run: 300       # cap on jobs sent to the LLM per run (cost control)
+  max_jobs_per_run: 10        # HARD cap on jobs sent to the LLM per run (cost control). Scheduled runs use this.
   validation_description_max_chars: 6000  # description chars sent to the LLM
   llm_workers: 4              # parallel LLM calls
   description_max_chars: 1500 # truncation for the Sheet cell
