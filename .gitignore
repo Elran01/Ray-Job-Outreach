@@ -15,6 +15,7 @@ data/*
 !data/.gitkeep
 !data/sample_raw.json
 !data/sample_filtered.csv
+!data/sample_outreach.csv
 
 # Python
 __pycache__/

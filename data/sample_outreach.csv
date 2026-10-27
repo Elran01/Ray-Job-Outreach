@@ -1,0 +1,67 @@
+﻿url,title,company,location,outreach_message,prompt_used,model,words,flags,error
+https://himalayas.app/companies/percona/jobs/executive-assistant-to-the-ceo-8176682713,Executive Assistant to the CEO,Percona,"Croatia, Greece, Hungary, Ireland, Netherlands, Poland, Portugal, United Kingdom","I saw your posting for an Executive Assistant to support Percona's CEO and coordinate with the Executive Leadership Team. Given the scope of calendar management, board meeting prep, and cross-functional coordination involved, I imagine you're navigating a high volume of applications.
+
+I'm Kai from RAY. We help companies hire remote Executive and Administrative Assistants by introducing relevant candidate profiles, so you don't have to sift through hundreds of resumes yourself.
+
+I'd love to have a quick conversation to see if we can help fill this role and share a few profiles if it's a fit.
+
+Would you have 15 minutes for a call? Just reply to this message and we'll find a time that works.
+
+Kai",prompts/outreach.md,claude-sonnet-4-5,116,,
+https://himalayas.app/companies/pairs/jobs/executive-assistant-to-the-founders,Executive Assistant to the Founders,Pairs,"Germany, United Arab Emirates, United Kingdom","I saw your posting for an Executive Assistant to support both co-founders at Pairs. Supporting two principals simultaneously across time zones while maintaining judgment on what can be handled independently is a specific skill set, and these roles often attract a flood of applications that take real time to evaluate properly.
+
+RAY helps companies hire remote Executive and Administrative Assistants. We introduce candidates and can support the search so you don't have to sift through hundreds of applicants yourself.
+
+I'd be happy to have a short conversation to see whether we can help fill this role, and to share a few relevant candidate profiles if it's a fit.
+
+Would you be open to a quick 15-minute call? Just reply to this message and we'll set one up.
+
+Kai",prompts/outreach.md,claude-sonnet-4-5,128,,
+https://himalayas.app/companies/kong/jobs/administrative-assistant-emea-apj,Administrative Assistant-EMEA & APJ,Kong,India,"I saw your posting for an Administrative Assistant supporting the EMEA & APJ Sales VPs at Kong. Given the complexity of managing calendars across multiple time zones and coordinating international travel for senior leaders, I thought it might be worth connecting.
+
+I'm Kai from RAY. We help companies hire remote Executive and Administrative Assistants by introducing relevant candidate profiles, so you don't have to sift through a flood of applications yourself.
+
+I'd be happy to have a short conversation to see if we can help fill this role and share a few profiles if it's a fit.
+
+Would you have 15 minutes for a quick call? Just reply to this message and we can set it up.
+
+Kai",prompts/outreach.md,claude-sonnet-4-5,118,,
+https://himalayas.app/companies/nominal/jobs/executive-assistant-us-leadership,Executive Assistant- US leadership,Nominal,Brazil,"I saw your Executive Assistant posting for Nominal's US leadership team—particularly the focus on CEO support with core hours aligned to US Eastern time while hiring in Brazil.
+
+At RAY, we help companies hire remote Executive and Administrative Assistants. We introduce candidates so you don't have to sift through the flood of applications that EA roles typically attract.
+
+I'd be happy to have a short conversation to see if we can help fill this role, and to share a few relevant candidate profiles if it's a fit.
+
+Would you be open to a quick 15-minute call? Just reply to this message and we'll set one up.
+
+Kai",prompts/outreach.md,claude-sonnet-4-5,107,,
+https://himalayas.app/companies/offchain-labs/jobs/executive-assistant,Executive Assistant,Offchain Labs,United States,"I noticed your posting for an Executive Assistant to support Offchain Labs' CEO. Given the technical complexity of your work in blockchain scalability and the high-growth nature of your team, finding someone who can operate with the right blend of discretion, responsiveness, and proactive support is critical.
+
+At RAY, we help companies hire remote Executive and Administrative Assistants. We introduce candidates and can support the search so you don't have to sift through a flood of applications.
+
+I'd love to have a short conversation to see whether we can help fill this role, and to share a few relevant candidate profiles if it's a fit.
+
+Would you be open to a quick 15-minute call? Just reply to this message to set one up.
+
+Kai",prompts/outreach.md,claude-sonnet-4-5,124,,
+https://himalayas.app/companies/percona/jobs/executive-assistant-to-the-ceo-8176682713,Executive Assistant to the CEO,Percona,"Croatia, Greece, Hungary, Ireland, Netherlands, Poland, Portugal, United Kingdom","Saw you're hiring an Executive Assistant for your CEO—especially one who can juggle board prep and conference talk support. I'm Kai from RAY, and we help companies hire remote EAs and admins. Happy to jump on a quick 15-minute call to see if we're a fit and share some relevant candidate profiles if so. Just reply and we'll find a time.
+
+Kai",prompts/outreach_casual.md,claude-sonnet-4-5,62,,
+https://himalayas.app/companies/pairs/jobs/executive-assistant-to-the-founders,Executive Assistant to the Founders,Pairs,"Germany, United Arab Emirates, United Kingdom","I saw you're hiring an EA to own both founders' calendars and inboxes at Pairs. We help companies fill remote assistant roles by introducing relevant candidates so you don't have to sort through hundreds of applications yourself. Happy to jump on a quick 15-minute call to see if we can help and share a few profiles if it's a fit. Just reply to set it up.
+
+Kai",prompts/outreach_casual.md,claude-sonnet-4-5,67,,
+https://himalayas.app/companies/kong/jobs/administrative-assistant-emea-apj,Administrative Assistant-EMEA & APJ,Kong,India,"Supporting EMEA & APJ sales leaders across time zones takes serious coordination—I saw your posting for an Administrative Assistant to help with that.
+
+I'm Kai from RAY. We help companies hire remote Executive and Administrative Assistants, and I'd love to share a few relevant candidate profiles if it's a fit.
+
+Up for a quick 15-minute call? Just reply here and we'll set it up.
+
+Kai",prompts/outreach_casual.md,claude-sonnet-4-5,65,,
+https://himalayas.app/companies/nominal/jobs/executive-assistant-us-leadership,Executive Assistant- US leadership,Nominal,Brazil,"I saw you're hiring an EA to support your US leadership team, including the CEO. At RAY, we help companies like Nominal hire remote Executive and Administrative Assistants—we introduce relevant candidates so you don't have to sift through hundreds of applications yourself.
+
+Happy to jump on a quick 15-minute call to see if we can help. Just reply if you'd like to chat.
+
+Kai",prompts/outreach_casual.md,claude-sonnet-4-5,64,,
+https://himalayas.app/companies/offchain-labs/jobs/executive-assistant,Executive Assistant,Offchain Labs,United States,"Supporting a CEO in a high-growth blockchain environment takes a very specific kind of EA. I'm Kai from RAY—we help companies hire remote Executive and Administrative Assistants. Happy to share a few relevant candidate profiles if it's a fit. Would a quick 15-minute call work to explore whether we can help with this search? Just reply to set one up.
+
+Kai",prompts/outreach_casual.md,claude-sonnet-4-5,61,,
