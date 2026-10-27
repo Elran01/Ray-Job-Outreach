@@ -1,0 +1,106 @@
+# Pipeline configuration. Secrets live in .env, never here.
+
+search_queries:
+  - "executive assistant"
+  - "administrative assistant"
+  - "virtual assistant"
+  - "personal assistant"
+  - "office assistant"
+  - "EA to CEO"
+
+# Enabled sources (implemented in later phases)
+sources:
+  himalayas:
+    enabled: true    # server-side search, best volume; requires visible "Himalayas" credit + link back
+    max_pages_per_query: 3   # 20 jobs per page
+  remotive:
+    enabled: true    # API currently returns only ~10 jobs; requires link back + "Remotive" credit
+  weworkremotely:
+    enabled: true    # public RSS feeds; categories below overlap, which exercises dedupe
+    feeds:
+      - /remote-jobs.rss
+      - /categories/all-other-remote-jobs.rss
+      - /categories/remote-management-and-finance-jobs.rss
+      - /categories/remote-customer-support-jobs.rss
+  remoteok:
+    enabled: true    # requires link back to the Remote OK URL + "Remote OK" credit; no logo use
+
+# Titles containing any of these are NEVER dropped by the prefilter, so e.g.
+# "Executive Assistant to the VP of Sales" reaches the LLM. Ambiguous ones
+# ("Sales Admin Manager", "Marketing Assistant") are judged by the LLM.
+protected_title_keywords:
+  - assistant
+  - secretary
+  - receptionist
+  - chief of staff
+  - administrative
+  - admin
+
+# Stage 1 prefilter: drop a job if its TITLE contains any of these as a whole word
+# (case-insensitive; plurals and -ing match). Kept narrow so real roles are not dropped.
+excluded_title_keywords:
+  - engineer
+  - developer
+  - software
+  - devops
+  - data scientist
+  - designer
+  - sales
+  - account executive
+  - marketing
+  - nurse
+  - physician
+  - recruiter
+  - customer support
+  - customer success
+  - support specialist
+  - accountant
+  - bookkeeper
+  - teacher
+  - tutor
+  - driver
+  - warehouse
+  - technician
+  - mechanic
+
+llm:
+  # Cheaper/faster model for yes/no classification, stronger one for writing.
+  validation_model: "claude-haiku-4-5"
+  # The Anthropic API currently rejects a `temperature` parameter (HTTP 400 "Extra inputs
+  # are not permitted"), so these are null = not sent. Determinism comes from the strict
+  # prompt + JSON schema validation instead. Set a number only if your API accepts it.
+  validation_temperature: null
+  validation_max_tokens: 500
+  outreach_model: "claude-sonnet-4-5"
+  outreach_temperature: null
+  outreach_max_tokens: 600
+
+prompts:
+  validate: "prompts/validate.md"
+  outreach: "prompts/outreach.md"
+  sender_profile: "profile/sender_profile.md"
+
+limits:
+  max_jobs_per_run: 300       # cap on jobs sent to the LLM per run (cost control)
+  validation_description_max_chars: 6000  # description chars sent to the LLM
+  llm_workers: 4              # parallel LLM calls
+  description_max_chars: 1500 # truncation for the Sheet cell
+  outreach_description_max_chars: 4000  # description chars sent to the outreach prompt
+  outreach_max_words: 130     # guardrail: longer messages are retried once (prompt asks for <120)
+
+http:
+  user_agent: "ray-ea-outreach/0.1 (job research bot; contact: kai_elran@yahoo.com)"
+  request_delay_seconds: 1.0
+  timeout_seconds: 45
+  max_retries: 3
+  cache_ttl_minutes: 360      # reuse API responses for 6h (Remotive asks for <= 4 calls/day)
+
+paths:
+  raw_json: "data/jobs_raw.json"
+  filtered_csv: "data/jobs_filtered.csv"
+  rejected_csv: "data/jobs_rejected.csv"
+  outreach_csv: "data/jobs_outreach.csv"
+
+sheets:
+  sheet_id: "YOUR_GOOGLE_SHEET_ID_HERE"  # overridden by SHEET_ID env var if set
+  worksheet_name: "Jobs"

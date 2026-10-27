@@ -1,0 +1,10 @@
+requests>=2.32
+feedparser>=6.0
+beautifulsoup4>=4.12
+PyYAML>=6.0
+python-dotenv>=1.0
+pydantic>=2.7
+anthropic>=0.40
+gspread>=6.1
+google-auth>=2.30
+pytest>=8.0

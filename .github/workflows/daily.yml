@@ -1,0 +1,107 @@
+name: Daily EA outreach
+
+# Runs the whole pipeline once a day and can be started by hand from the Actions tab.
+#
+# NO STATE IS STORED IN CI. Every run starts on a clean machine; "have I already seen this job?"
+# is answered by reading the URLs already in the Google Sheet. Nothing is cached or committed.
+#
+# Required repository secrets (Settings > Secrets and variables > Actions):
+#   ANTHROPIC_API_KEY            Anthropic API key
+#   GOOGLE_SERVICE_ACCOUNT_JSON  full contents of the service account's JSON key file
+#   SHEET_ID                     the long id in the Sheet URL between /d/ and /edit
+# Optional:
+#   HIMALAYAS_API_KEY            free Himalayas key (higher rate limits; works without it)
+
+on:
+  schedule:
+    # Daily at 06:17 UTC (cron is always UTC). Change the two numbers/stars to change the cadence:
+    # minute hour day-of-month month day-of-week. Odd minute on purpose: top-of-hour runs start late.
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run: do everything except write to the Sheet"
+        type: boolean
+        default: false
+      limit:
+        description: "Max jobs to send to the LLM (empty = use limits.max_jobs_per_run from config.yaml)"
+        type: string
+        default: ""
+      outreach_prompt:
+        description: "Outreach prompt file (empty = prompts.outreach from config.yaml), e.g. prompts/outreach_casual.md"
+        type: string
+        default: ""
+
+permissions:
+  contents: read
+
+# Two overlapping runs could both append the same new jobs; queue instead.
+concurrency:
+  group: daily-outreach
+  cancel-in-progress: false
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip # caches downloaded packages only, never pipeline data
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run the pipeline
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+          SHEET_ID: ${{ secrets.SHEET_ID }}
+          HIMALAYAS_API_KEY: ${{ secrets.HIMALAYAS_API_KEY }}
+          # manual-run inputs go through env vars (never pasted into the script) and are empty on scheduled runs
+          DRY_RUN: ${{ inputs.dry_run }}
+          LIMIT: ${{ inputs.limit }}
+          OUTREACH_PROMPT: ${{ inputs.outreach_prompt }}
+        run: |
+          missing=0
+          for name in ANTHROPIC_API_KEY GOOGLE_SERVICE_ACCOUNT_JSON SHEET_ID; do
+            if [ -z "${!name}" ]; then
+              echo "::error::Secret $name is not set. Add it under Settings > Secrets and variables > Actions."
+              missing=1
+            fi
+          done
+          [ "$missing" = "0" ] || exit 1
+
+          args=()
+          if [ "$DRY_RUN" = "true" ]; then args+=(--dry-run); fi
+          if [ -n "$LIMIT" ]; then
+            if ! [[ "$LIMIT" =~ ^[0-9]+$ ]]; then
+              echo "::error::limit must be a whole number, got '$LIMIT'"
+              exit 1
+            fi
+            args+=(--limit "$LIMIT")
+          fi
+          if [ -n "$OUTREACH_PROMPT" ]; then args+=(--outreach-prompt "$OUTREACH_PROMPT"); fi
+
+          echo "Running: python -m src.main ${args[*]}"
+          python -m src.main "${args[@]}"
+
+      - name: Upload run outputs
+        if: always() # keep the files for debugging even when the run failed
+        uses: actions/upload-artifact@v4
+        with:
+          name: run-outputs
+          path: |
+            data/jobs_raw.json
+            data/jobs_filtered.csv
+            data/jobs_rejected.csv
+            data/jobs_outreach.csv
+            data/last_run.log
+          if-no-files-found: ignore
+          retention-days: 14

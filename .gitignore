@@ -1,0 +1,34 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Google service account credentials
+service_account*.json
+*service-account*.json
+*credentials*.json
+client_secret*.json
+gcp-*.json
+
+# Runtime data (keep samples and the folder itself)
+data/*
+!data/.gitkeep
+!data/sample_raw.json
+!data/sample_filtered.csv
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Dev caches / OS / editor
+.cache/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
