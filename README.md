@@ -6,23 +6,6 @@ Every day this pipeline collects remote Executive/Administrative Assistant job p
 
 **Live Sheet:** <https://docs.google.com/spreadsheets/d/16c6zWJ5x2K1lLfdCEgAjTdZqaiYAEHZE-iiduCHN0wI> (access is managed by the Sheet owner; reviewers are added as viewers/editors)
 
-```
- job boards (public APIs / RSS)         config.yaml: search_queries
- Himalayas, Remotive, WWR, Remote OK ──► collect + dedupe (URL, then company+title) ──► data/jobs_raw.json
-                                                      │
-                                   keyword prefilter on the title (free) ──► dropped titles ─┐
-                                                      │                                      │
-                      drop jobs whose URL is already in the Google Sheet (no LLM spend)      │
-                                                      │                                      ▼
-                       cap at limits.max_jobs_per_run (and --limit)            data/jobs_rejected.csv
-                                                      │                                      ▲
-            LLM validation (prompts/validate.md, Haiku): remote? English? relevant? ─ fail ──┘
-                                                      │ pass
-            LLM outreach (prompts/outreach*.md + profile/sender_profile.md, Sonnet)
-                                                      │
-                          append new rows to the Google Sheet (Status = New)
-```
-
 Repo layout:
 
 ```
